@@ -1,0 +1,21 @@
+.wrapper {
+  justify-content: center;
+  width: 1010px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.row {
+  gap: 36px;
+  margin-bottom: 37px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.noFound {
+  width: 200px;
+  height: 50px;
+}
