@@ -16,8 +16,8 @@
   ],
   "parserOptions": {
     "es6": true,
-    "ecmaFeatures": {
-      "jsx": true
+    "ecmaFeatures": { 
+      "jsx": true 
     },
     "ecmaVersion": 12,
     "sourceType": "module"
@@ -26,6 +26,7 @@
   "rules": {
     "indent": 0,
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "camelcase": ["error", {"properties": "always"}],
     "linebreak-style": [0, "unix"],
     "quotes": 0,
     "semi": 0,

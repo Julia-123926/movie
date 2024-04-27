@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'antd';
+import { Col, Rate } from 'antd';
 import { format, parseISO } from 'date-fns';
 
 import NotFound from '../NotFound';
@@ -19,9 +19,15 @@ const MovieCard = ({ movie }) => {
         <div className={styles.info}>
           <h3>{movie.title}</h3>
           {movie.release_date ? <p className={styles.date}>{format(parseISO(movie.release_date), 'MMMM d, y')}</p> : ''}
+          <div className={styles.genres}>
+            {movie.genres.map((genre) => (
+              <p key={genre.id}>{genre.name}</p>
+            ))}
+          </div>
           <p className={styles.overview}>
-            {movie.overview && `${movie.overview.split(' ').slice(0, 30).join(' ')}...`}
+            {movie.overview && `${movie.overview.split(' ').slice(0, 15).join(' ')}...`}
           </p>
+          <Rate count={10} className={styles.stars} />
         </div>
       </div>
     </Col>

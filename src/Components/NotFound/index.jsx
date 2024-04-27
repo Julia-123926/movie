@@ -1,11 +1,8 @@
 import './NotFound.css';
+import imgSrc from './img/noPoster.jpg';
 
 const NotFound = () => {
-  return (
-    <div className="not_found__container">
-      <h1 className="not_found">404 Not Found</h1>
-    </div>
-  );
+  return <img alt="notFound" src={imgSrc} />;
 };
 
 export default NotFound;
