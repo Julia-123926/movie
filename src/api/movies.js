@@ -19,9 +19,9 @@ async function fetchMovies(queryValue, pageNumber) {
       return { ...movie, genres: newGenres };
     });
 
-    return { results: newMovies, total };
+    return { results: newMovies, total, genres };
   } catch (err) {
-    throw new Error('error while fetching');
+    throw new Error('Oops... something went wrong');
   }
 }
 

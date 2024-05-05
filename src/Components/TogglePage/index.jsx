@@ -2,11 +2,15 @@ import React from 'react';
 
 import styles from './TogglePage.module.scss';
 
-const TogglePage = () => {
+const TogglePage = ({ setCurrentPage }) => {
   return (
     <div className={styles.root}>
-      <button className={styles.search}>Search</button>
-      <button className={styles.rated}>Rated</button>
+      <button className={styles.search} onClick={() => setCurrentPage('search')}>
+        Search
+      </button>
+      <button className={styles.rated} onClick={() => setCurrentPage('rated')}>
+        Rated
+      </button>
     </div>
   );
 };
