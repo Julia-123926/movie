@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+
 import { useState } from 'react';
 
 import CategoryContext from '.';

@@ -1,34 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
 import { Spin, Alert, Pagination } from 'antd';
 
 import MovieCard from '../MovieCard';
-import fetchMovies from '../../api/movies';
-import CategoryContext from '../../context';
 
 import styles from './MovieList.module.scss';
 
-const MovieList = ({ movies, setMovies, queryValue, pageNumber, setPageNumber, addToRatedList }) => {
-  const [totalMovies, setTotalMovies] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [, setCategories] = useContext(CategoryContext);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchMovies(queryValue, pageNumber)
-      .then(({ results, total, genres }) => {
-        setMovies(results);
-        setCategories(genres);
-        setTotalMovies(total);
-        setLoading(false);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
-    window.scrollTo(0, 0);
-  }, [queryValue, pageNumber]);
-
+const MovieList = ({ movies, pageNumberMovies, setPageNumberMovies, sessionId, totalMovies, loading, error }) => {
   const films = movies.map((movie) => (
-    <MovieCard addToRatedList={addToRatedList} key={movie.id} className="card_wrapper" {...movie} />
+    <MovieCard sessionId={sessionId} key={movie.id} className="card_wrapper" {...movie} />
   ));
 
   return (
@@ -48,10 +26,11 @@ const MovieList = ({ movies, setMovies, queryValue, pageNumber, setPageNumber, a
       <div>
         <Pagination
           className={styles.pagination}
-          defaultCurrent={pageNumber}
+          defaultCurrent={pageNumberMovies}
           pageSize={20}
           total={totalMovies}
-          onChange={(page) => setPageNumber(page)}
+          onChange={(page) => setPageNumberMovies(page)}
+          showSizeChanger={false}
         />
       </div>
     </div>

@@ -1,37 +1,38 @@
-// .col {
-//   padding: 0;
-//   width: 451px;
-//   // height: 279px;
-//   box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
-// }
-
 .card {
   padding: 0;
-  display: flex;
-  width: 454px;
-  height: 281px;
-  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  display: grid;
+  grid-template-columns: 183px auto;
+  grid-template-areas:
+    'img info'
+    'img overview'
+    'img stars';
+  grid-column-gap: 20px;
+  grid-template-rows: minmax(120px, auto) minmax(10px, auto) minmax(10px, auto);
+  max-width: 451px;
+  box-shadow: 0 4px 12px #00000026;
+  height: 280px;
 
   img {
-    width: 183px;
-    height: auto;
+    width: 100%;
+    height: 100%;
     margin: 0;
+    grid-area: img;
   }
 }
 
 .info {
-  padding-left: 20px;
   display: flex;
   flex-direction: column;
-  // justify-content: space-around;
   gap: 5px;
-  margin-right: 5px;
+  padding-right: 8px;
+  grid-area: info;
+  padding-top: 8px;
 
   .flex {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    padding-right: 10px;
+
     font-size: 12px;
 
     h3 {
@@ -41,7 +42,6 @@
       font-size: 20px;
       font-weight: 400;
       line-height: 28px;
-      margin-top: 10px;
     }
 
     .rating {
@@ -83,14 +83,15 @@
   font-weight: 400;
   line-height: 22px;
   height: 129px;
-  padding-right: 20px;
+  padding-right: 10px;
   overflow: hidden;
+  grid-area: overview;
 }
 .stars {
-  display: flex;
   font-size: 16px;
   margin-top: auto;
   margin-bottom: 10px;
+  grid-area: stars;
 }
 
 .genres {
@@ -98,10 +99,48 @@
   gap: 6px;
   flex-wrap: wrap;
 
-  p {
+  li {
     border: 1px solid rgb(217, 217, 217);
     border-radius: 2px;
     background: rgb(250, 250, 250);
     padding: 2px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    grid-template-columns: 65px auto;
+    grid-template-areas:
+      'img info'
+      'overview overview'
+      'stars stars';
+    grid-template-rows: minmax(110px, auto) minmax(90px, auto) minmax(10px, auto);
+    grid-column-gap: 10px;
+    max-width: 388px;
+    max-height: 245px;
+    padding: 10px;
+
+    img {
+      width: 60px;
+      height: 91px;
+    }
+  }
+
+  .info {
+    padding: 0;
+    .flex {
+      h3 {
+        font-size: 16px;
+        line-height: 18px;
+      }
+    }
+  }
+
+  .stars {
+    display: flex;
+    justify-content: end;
+    padding-right: 10px;
   }
 }

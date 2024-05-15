@@ -4,22 +4,12 @@ import { Rate } from 'antd';
 import { format, parseISO } from 'date-fns';
 
 import NotFound from '../NotFound';
+import { postMovieRating } from '../../api/movies';
 
 import styles from './MovieCard.module.scss';
 
-const MovieCard = ({
-  vote_average,
-  poster_path,
-  release_date,
-  title,
-  genres,
-  id,
-  overview,
-  addToRatedList,
-  rating = 0,
-}) => {
+const MovieCard = ({ vote_average, poster_path, release_date, title, genres, id, overview, sessionId, rating = 0 }) => {
   const [ratingValue, setRatingValue] = useState(rating);
-
   const color = () => {
     if (vote_average <= 3) {
       return 'red';
@@ -35,10 +25,9 @@ const MovieCard = ({
   const ratingColor = styles[color()];
 
   const onRatedClick = (value) => {
-    addToRatedList({ vote_average, poster_path, release_date, title, genres, overview, id, rating: value });
+    postMovieRating(id, value, sessionId);
     setRatingValue(value);
   };
-  // console.log(ratingValue);
   return (
     <li className={styles.col}>
       <div className={styles.card}>
@@ -54,14 +43,16 @@ const MovieCard = ({
             <div className={`${ratingColor} ${styles.rating}`}>{vote_average.toFixed(1)}</div>
           </div>
           {release_date ? <p className={styles.date}>{format(parseISO(release_date), 'MMMM d, y')}</p> : ''}
-          <div className={styles.genres}>
+          <ul className={styles.genres}>
             {genres.map((genre) => (
-              <p key={genre.id}>{genre.name}</p>
+              <li key={genre.id}>{genre.name}</li>
             ))}
-          </div>
-          <p className={styles.overview}>{overview && `${overview.split(' ').slice(0, 15).join(' ')}...`}</p>
-          <Rate allowHalf value={ratingValue} onChange={onRatedClick} count={10} className={styles.stars} />
+          </ul>
         </div>
+        <div className={styles.overview}>
+          <p>{overview && `${overview.split(' ').slice(0, 15).join(' ')}...`}</p>
+        </div>
+        <Rate allowHalf value={ratingValue} onChange={onRatedClick} count={10} className={styles.stars} />
       </div>
     </li>
   );
