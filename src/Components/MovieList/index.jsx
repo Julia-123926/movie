@@ -12,7 +12,15 @@ const MovieList = ({ movies, pageNumberMovies, setPageNumberMovies, sessionId, t
   return (
     <div className={styles.wrapper}>
       {loading && <Spin className={styles.spin} size="large" />}
-      {error && <Alert className={styles.alert} message="Error" description={error} type="error" showIcon />}
+      {error && (
+        <Alert
+          className={styles.alert}
+          message="Oops, something went wrong :("
+          description={error}
+          type="info"
+          showIcon
+        />
+      )}
       <ul className={styles.list}>
         {!loading && !error && (
           <>

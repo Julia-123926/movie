@@ -42,18 +42,23 @@ const App = () => {
 
       setTotalMovies(total);
     } catch (err) {
-      setError(err.message);
+      setError(true);
     } finally {
       setLoading(false);
     }
   }
 
   async function fetchGenres() {
-    const genres = await getGenres();
-    setCategories(genres);
-    const id = await createGuestSession();
-    setSessionId(id);
-    setGenresLoaded(true);
+    try {
+      const genres = await getGenres();
+      setCategories(genres);
+      const id = await createGuestSession();
+      setSessionId(id);
+    } catch (e) {
+      setError(true);
+    } finally {
+      setGenresLoaded(true);
+    }
   }
 
   useEffect(() => {
@@ -61,7 +66,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     if (genresLoaded && currentPage === 'search') {
       fetchMoviesData();
       window.scrollTo(0, 0);

@@ -11,7 +11,7 @@ export async function fetchMovies(queryValue, page) {
     const { results, total_results: total } = await resMovies.json();
     return { results, total };
   } catch (err) {
-    throw new Error('Oops... something went wrong');
+    return null;
   }
 }
 
@@ -64,7 +64,7 @@ export async function postMovieRating(movieId, rating, sessionId) {
   const url = `https://api.themoviedb.org/3/movie/${movieId}/rating?guest_session_id=${sessionId}`;
   const apiKey =
     'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZjI0OWQ2YWE3YjVkNGEyNTcwM2Y5ZDk3Y2M5ODRlOSIsInN1YiI6IjY2MTZhZjQ4ODczZjAwMDE2NDkxN2Q3MSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.XF0gShlmkaijJMtV3DfS3UzR5nHdAYoHAH1kZrInhMY';
-  const response = await fetch(url, {
+  await fetch(url, {
     method: 'POST',
     headers: {
       accept: 'application/json',
@@ -73,8 +73,6 @@ export async function postMovieRating(movieId, rating, sessionId) {
     },
     body: JSON.stringify({ value: rating }),
   });
-  const data = await response.json();
-  console.log(data);
 }
 
 // получение оцененных фильмов
@@ -87,7 +85,7 @@ export async function fetchRatedMovies(page, sessionId) {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer  ${apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
     },
   };
   try {
